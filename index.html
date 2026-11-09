@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заявка на консультацию — Лабораторная работа № 10</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <h1 class="page__title">Заявка на консультацию</h1>
+      <p class="page__subtitle">
+        Демонстрационная веб-форма для автоматизированного тестирования
+        в среде CI/CD (GitHub Actions).
+      </p>
+    </header>
+
+    <form id="request-form" class="form" novalidate>
+      <div class="field">
+        <label class="field__label" for="name">Имя <span class="required">*</span></label>
+        <input class="field__input" type="text" id="name" name="name"
+               placeholder="Иванов Иван" autocomplete="name">
+        <p class="field__error" id="error-name" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="email">Электронная почта <span class="required">*</span></label>
+        <input class="field__input" type="email" id="email" name="email"
+               placeholder="ivanov@example.com" autocomplete="email">
+        <p class="field__error" id="error-email" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="topic">Тема обращения</label>
+        <select class="field__input" id="topic" name="topic">
+          <option value="consult">Консультация</option>
+          <option value="support">Техническая поддержка</option>
+          <option value="other">Другое</option>
+        </select>
+        <p class="field__error" id="error-topic" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="message">Сообщение <span class="required">*</span></label>
+        <textarea class="field__input field__input--area" id="message" name="message"
+                  rows="5" placeholder="Опишите вопрос"></textarea>
+        <p class="field__error" id="error-message" hidden></p>
+      </div>
+
+      <div class="field field--checkbox">
+        <label class="checkbox">
+          <input type="checkbox" id="agree" name="agree">
+          <span>Согласен на обработку персональных данных <span class="required">*</span></span>
+        </label>
+        <p class="field__error" id="error-agree" hidden></p>
+      </div>
+
+      <button class="button" type="submit" id="submit">Отправить заявку</button>
+    </form>
+
+    <div class="success" id="success" hidden>
+      <h2 class="success__title">Заявка отправлена</h2>
+      <p class="success__text">
+        Спасибо, <span id="success-name"></span>! Мы свяжемся с вами по адресу
+        <span id="success-email"></span>.
+      </p>
+    </div>
+  </main>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

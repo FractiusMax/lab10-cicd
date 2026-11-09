@@ -1,0 +1,152 @@
+/* Оформление демонстрационной формы. */
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7684;
+  --accent: #2f6fed;
+  --accent-dark: #2457bd;
+  --error: #d64545;
+  --ok: #1f9d63;
+  --border: #d7dde8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*
+ * Атрибут hidden должен всегда скрывать элемент. Правило браузера
+ * `[hidden] { display: none }` уступает свойствам элемента (например,
+ * display: flex у .form), поэтому атрибут задаётся явно.
+ */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 32px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(31, 41, 51, 0.08);
+}
+
+.page__title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.page__subtitle {
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.required {
+  color: var(--error);
+}
+
+.field__input {
+  padding: 10px 12px;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.15);
+}
+
+.field__input--area {
+  resize: vertical;
+}
+
+.field--checkbox {
+  gap: 4px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.field__error {
+  margin: 0;
+  color: var(--error);
+  font-size: 13px;
+}
+
+.field__error[hidden] {
+  display: none;
+}
+
+.button {
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+}
+
+.success {
+  padding: 20px;
+  background: rgba(31, 157, 99, 0.08);
+  border: 1px solid rgba(31, 157, 99, 0.35);
+  border-radius: 8px;
+}
+
+.success__title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--ok);
+}
+
+.success__text {
+  margin: 0;
+  color: var(--muted);
+}

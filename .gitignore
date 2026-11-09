@@ -1,0 +1,18 @@
+# Артефакты тестов и временные файлы
+__pycache__/
+*.py[cod]
+.pytest_cache/
+artifacts/
+screenshots/
+report.html
+
+# Окружение
+.venv/
+venv/
+env/
+
+# Редакторы и ОС
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

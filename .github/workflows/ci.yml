@@ -1,0 +1,75 @@
+# =============================================================================
+#  CI: автоматический запуск автотестов пользовательского интерфейса.
+#
+#  Конвейер срабатывает при каждом отправлении изменений в репозиторий
+#  и при открытии/обновлении pull request. Тесты запускаются в браузере
+#  Chrome в режиме headless.
+#
+#  Шаги:
+#   1. установка Python и зависимостей;
+#   2. установка Chrome (используется предустановленный образ ubuntu-latest);
+#   3. запуск Selenium-тестов;
+#   4. выгрузка отчёта и снимков экрана как артефактов.
+# =============================================================================
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+# Отменять предыдущий прогон, если в ветку пришёл новый коммит
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Автотесты интерфейса
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Получить исходный код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Установить зависимости
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Установить Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Запустить автотесты
+        run: |
+          python -m pytest --html=artifacts/report.html --self-contained-html
+
+      - name: Выгрузить отчёт и снимки экрана
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report
+          path: |
+            artifacts/
+            screenshots/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Выгрузить снимки экрана при ошибке
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-on-failure
+          path: screenshots/
+          retention-days: 14
+          if-no-files-found: ignore
